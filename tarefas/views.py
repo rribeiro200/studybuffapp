@@ -30,9 +30,16 @@ def criar_tarefa(request):
                     hora=horario_tarefa,
                     usuario_fk=usuario_tarefa
                 )
+
                 if nova_tarefa.save:
-                    messages.success(request, 'Tarefa criada com sucesso! Veja-a em "Minhas tarefas"')
-                    return redirect('tarefas:index')
+                    pag_minhas_tarefas = request.META.get('HTTP_REFERER', 'tarefas:minhas_tarefas')
+
+                    if pag_minhas_tarefas:
+                        messages.success(request, 'Nova tarefa criada!')
+                        return redirect('tarefas:minhas_tarefas')
+                    else:
+                        messages.success(request, 'Tarefa criada com sucesso! Veja-a em "Minhas tarefas"')
+                        return redirect('tarefas:index')
                 
     return redirect('tarefas:index')
 

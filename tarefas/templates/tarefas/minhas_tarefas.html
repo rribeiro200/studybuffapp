@@ -75,7 +75,17 @@
 
     <section style="margin-top:80px;" id="tarefas">
         <div class="container">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                      <div class="alert alert-success" role="success">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="row">
+                
                 <div class="col-md-12">
                     <h2>Minhas Tarefas</h2>
 
