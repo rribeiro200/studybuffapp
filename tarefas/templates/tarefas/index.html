@@ -42,19 +42,27 @@
             </li>
 
             <!-- Só exibir se usuário estiver logado -->
+            {% if request.session.usuario %}
             <li class="nav-item">
               <a href="minhas_tarefas.html" style="color: white;" class="nav-link">Minhas tarefas</a>
             </li>
+            {% endif %}
 
             <!-- Se usuário ainda não tiver conta exibir "Cadastre-se"-->
             <!-- Após usuário logar exibir "Sair"-->
             <!-- Se usuário já possuir conta, ao clicar em entrar, redirecionar para template de exibição  de tarefas -->
+            {% if not request.session.usuario %}
             <li class="nav-item">
-              <a href="login.html" class="btn btn-outline-light ml-4">Entrar</a>
+              <a href="{% url 'usuarios:login' %}" class="btn btn-outline-light ml-3">Login</a>
             </li>
             <li class="nav-item">
-              <a href="cadastre-se.html" class="btn btn-outline-light ml-4">Cadastre-se</a>
+              <a href="{% url 'usuarios:formulario_cadastro' %}" class="btn btn-outline-light ml-4">Cadastre-se</a>
             </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="{% url 'usuarios:logout' %}" class="btn btn-outline-light ml-3">Logout</a>
+            </li>
+            {% endif %}
           </ul>
         </div>
 

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Usuario
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from utils.logout import deslogar
 
 
 # FORM LOGIN
@@ -21,13 +22,24 @@ def login(request):
         )
 
         if usuario:
-            return HttpResponse('IMPLEMENTANDO A PÁGINA PRINCIPAL AINDA')
+            dict_usuario_sessao = {
+            'id': usuario[0].id_usuario,
+            'nome_completo': usuario[0].nome_completo,
+            'email': usuario[0].email,
+            'senha': usuario[0].senha,
+        }
+            request.session['usuario'] = dict_usuario_sessao
+            return redirect('tarefas:index')
         else:
             messages.error(request, 'Credenciais inválidas. Por favor, verifique seu e-mail e senha.')
             
             return redirect('usuarios:formulario_login')
         
     return redirect('usuarios:formulario_login')
+
+def logout(request):
+    deslogar(request)
+    return redirect('tarefas:index')
 
 
 
@@ -66,4 +78,4 @@ def cadastre_se(request):
         )
         novo_usuario.save()
         
-    return HttpResponse('Depois do usuário se cadastrar, renderiza o login.html')
+    return redirect('usuarios:formulario_login')
