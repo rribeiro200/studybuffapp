@@ -41,12 +41,9 @@
               <a href="" style="color: white;" class="nav-link">Home</a>
             </li>
 
-            <!-- Só exibir se usuário estiver logado -->
-            {% if request.session.usuario %}
             <li class="nav-item">
-              <a href="minhas_tarefas.html" style="color: white;" class="nav-link">Minhas tarefas</a>
+              <a href="{% url 'tarefas:minhas_tarefas' %}" style="color: white;" class="nav-link">Minhas tarefas</a>
             </li>
-            {% endif %}
 
             <!-- Se usuário ainda não tiver conta exibir "Cadastre-se"-->
             <!-- Após usuário logar exibir "Sair"-->
@@ -72,25 +69,42 @@
 
   <section id="Home"><!--Inicio Sessão Home--->
     <div class="container">
-
       <div class="row">
 
         <div class="col-md-6 d-flex"><!---Textos da Seção--->
           <div class="align-self-center">
+
+            {% if messages %}
+            <div class="messages">
+              {% for message in messages %}
+              <div class="alert alert-success" role="success">
+                {{ message }}
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+
             <h1 class="display-4">Gerencie suas tarefas</h1>
             <p>
               Estude com inteligência, gerencie melhor.
               Personalize sua experiência de aprendizado com StudyBuff.
             </p>
 
+            {% if not request.session.usuario %}
+            <div class="input-group-append">
+              <a href="{% url 'usuarios:formulario_login' %}" id="botao_nova_tarefa"
+                style="background-color: #027c00; border-color: #027c00;" class="btn btn-primary">
+                Faça login e crie suas tarefas
+              </a>
+            </div>
+            {% else %}
             <div class="input-group-append">
               <a href="#" id="botao_nova_tarefa" style="background-color: #027c00; border-color: #027c00;"
                 class="btn btn-primary" data-toggle="modal" data-target="#modalNovaTarefa">
-                Nova tarefa
+                Criar tarefa
               </a>
-
             </div>
-
+            {%endif%}
           </div>
         </div><!---Fim Textos da Seção--->
 
@@ -219,7 +233,8 @@
         </div>
         <div class="modal-body">
           <!-- Formulário de criação de tarefa -->
-          <form id="formNovaTarefa">
+          <form action="{% url 'tarefas:criar_tarefa' %}" method="POST" id="formNovaTarefa">
+            {% csrf_token %}
             <div class="form-group">
               <label for="tituloTarefa">Título</label>
               <input type="text" class="form-control" id="tituloTarefa" name="tituloTarefa"

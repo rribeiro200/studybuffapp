@@ -7,7 +7,6 @@ class Usuario(models.Model):
     nome_completo = models.CharField(max_length=255)
     email = models.EmailField()
     senha = models.CharField(max_length=255)
-    # tarefa = models.ForeignKey(Tarefa, on_delete=SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f'Instância: {self.id_usuario}, Entidade: {self.__class__.__name__}'
