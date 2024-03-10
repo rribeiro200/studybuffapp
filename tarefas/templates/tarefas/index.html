@@ -24,7 +24,7 @@
 <body>
 
   <header><!---Inicio Cabeçalho--->
-    <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #af7d58;">
+    <nav class="caixa-navbar navbar navbar-expand-sm navbar-light" style="background-color: #000000;">
       <div class="container">
 
         <a href="" class="navbar-brand">
@@ -67,7 +67,7 @@
     </nav>
   </header><!---Fim Cabeçalho--->
 
-  <section id="Home"><!--Inicio Sessão Home--->
+  <section class="caixa" id="Home"><!--Inicio Sessão Home--->
     <div class="container">
       <div class="row">
 
@@ -93,13 +93,13 @@
             {% if not request.session.usuario %}
             <div class="input-group-append">
               <a href="{% url 'usuarios:formulario_login' %}" id="botao_nova_tarefa"
-                style="background-color: #027c00; border-color: #027c00;" class="btn btn-primary">
+                style="background-color: #222769; border-color: #222769;" class="btn btn-primary">
                 Faça login e crie suas tarefas
               </a>
             </div>
             {% else %}
             <div class="input-group-append">
-              <a href="#" id="botao_nova_tarefa" style="background-color: #027c00; border-color: #027c00;"
+              <a href="#" id="botao_nova_tarefa" style="background-color: #222769; border-color: #222769;"
                 class="btn btn-primary" data-toggle="modal" data-target="#modalNovaTarefa">
                 Criar tarefa
               </a>
@@ -117,7 +117,7 @@
     </div>
   </section><!---Fim Sessão Home--->
 
-  <section style="background-color: #af7d58;" class="caixa"><!--Inicio Sessão Saiba-->
+  <section style="background-color: #000000;" class="caixa"><!--Inicio Sessão Saiba-->
     <div class="container">
       <div class="row">
 
@@ -131,7 +131,7 @@
               vida.
             </p>
             <!-- Se usuario estiver logado e possuir tarefas, exibe: -->
-            <a href="" style="background-color: #027c00; border-color: #027c00;" class="btn btn-success">Minhas
+            <a href="" style="background-color: #222769; border-color: #222769;" class="btn btn-success">Minhas
               tarefas</a>
           </div>
         </div>
@@ -145,7 +145,7 @@
     </div>
   </section><!--Fim Sessão Saiba-->
 
-  <section style="background-color: #202239;" class="caixa"><!--Inicio Sessão CONTEUDOS JUNTOS (FINAL)-->
+  <section style="background-color: #000000;" class="caixa"><!--Inicio Sessão CONTEUDOS JUNTOS (FINAL)-->
     <div class="container">
       <div class="row">
 
@@ -186,7 +186,7 @@
     </div>
   </section><!--FIM SESSÃO CONTEUDOS JUNTOS (FINAL)-->
 
-  <section style="background-color: #af7d58;" class="caixa">
+  <section style="background-color: #000000;" class="caixa">
     <footer class="mt-5 mb-5">
       <div class="container">
         <div class="row">
@@ -224,7 +224,7 @@
   <div style="margin-top: 60px;" class="modal fade" id="modalNovaTarefa" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content" style="background-color: #af7d58; color: white;">
+      <div class="modal-content" style="background-color: #000000; color: white;">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Criar Tarefa</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
@@ -255,7 +255,7 @@
                 <input type="time" class="form-control" id="horarioTarefa" name="horarioTarefa" required>
               </div>
             </div>
-            <button style="background-color:#027c00; border-color:#027c00;" type="submit"
+            <button style="background-color:#222769; border-color:#222769;" type="submit"
               class="btn btn-primary btn-block">Criar
               Tarefa</button>
           </form>

@@ -53,3 +53,9 @@ def minhas_tarefas(request):
         return render(request, 'tarefas/minhas_tarefas.html', {'tarefas': tarefas_do_usuario})
     else:
         return render(request, 'tarefas/minhas_tarefas.html')
+
+
+def editar_tarefa(request, pk):
+    # Abrir um modal com os dados da tarefa nos inputs para usuário editar
+    
+    return HttpResponse('Editar tarefa')

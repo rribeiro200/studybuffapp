@@ -4,7 +4,7 @@
 }
 
 #Home{
-	background: #202239;
+	background: #000000;
 	color: white;
 }
 
@@ -14,7 +14,11 @@
 
 .caixa{
 	padding: 60px 0;
-	border-bottom: 5px solid #e5e5e5;
+	border-bottom: 5px solid #202239;
+}
+
+.caixa-navbar{
+	border-bottom: 5px solid #202239;
 }
 
 footer p a{

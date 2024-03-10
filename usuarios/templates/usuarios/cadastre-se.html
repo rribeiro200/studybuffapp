@@ -12,15 +12,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilo.css' %}">
 
     <title>StudyBuff - Cadastro</title>
 </head>
 
-<body style="background-color: #202239;">
+<body style="background-color: #000000;">
 
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #af7d58;">
+        <nav class="caixa-navbar navbar navbar-expand-sm navbar-light" style="background-color: #000000;">
             <div class="container">
 
                 <a href="" class="navbar-brand">
@@ -86,12 +86,12 @@
                                     placeholder="Confirme sua senha">
                             </div>
                         </div>
-                        <button type="submit" style="background-color: #aa6e40; border-color: #aa6e40;"
+                        <button type="submit" style="background-color: #222769; border-color: #222769;"
                             class="btn btn-primary btn-block">Criar
                             conta</button>
                     </form>
 
-                    <p style="color: white;" class="text-center mt-3">Já possui uma conta? <a style="color: #af7d58;"
+                    <p style="color: white;" class="text-center mt-3">Já possui uma conta? <a style="color: #222769;"
                             href="{% url 'usuarios:formulario_login' %}">Faça login</a>
                     </p>
                 </div>
