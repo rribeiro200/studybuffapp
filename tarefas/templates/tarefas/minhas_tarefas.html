@@ -55,7 +55,7 @@
     <header>
         <nav class="caixa-navbar navbar navbar-expand-sm navbar-light">
             <div class="container">
-                <a href="#" class="navbar-brand">
+                <a href="{% url 'tarefas:index' %}" class="navbar-brand">
                     <img src="{% static 'img/logo.png' %}" width="142" alt="Logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -75,8 +75,8 @@
 
     <section style="margin-top:80px;" id="tarefas">
         <div class="container">
-
-            <!--FEEDBACK PRO USUÁRIO-->
+    
+            <!-- FEEDBACK PRO USUÁRIO -->
             {% if messages %}
                 <div class="messages">
                     {% for message in messages %}
@@ -92,19 +92,19 @@
                     {% endfor %}
                 </div>
             {% endif %}
-
+    
             <div class="row">
                 <div class="col-md-12">
                     <h2>Minhas Tarefas</h2>
-
+    
                     {% if not tarefas %}
                         <p>Você não tem nenhuma tarefa.</p>
                         <div class="input-group-append">
                             <a href="#" id="botao_nova_tarefa" style="background-color: #222769; border-color: #222769;"
-                              class="btn btn-primary" data-toggle="modal" data-target="#modalNovaTarefa">
-                              Criar tarefa
+                                class="btn btn-primary" data-toggle="modal" data-target="#modalNovaTarefa">
+                                Criar tarefa
                             </a>
-                          </div>
+                        </div>
                     {% else %}
                     <ul class="list-group">
                         {% for tarefa in tarefas %}
@@ -114,15 +114,26 @@
                                 <p class="mb-1">{{ tarefa.descricao }}</p>
                                 <small>Data: {{ tarefa.data }} - Hora: {{ tarefa.hour }}</small>
                             </div>
-                            <span class="badge badge-primary badge-pill">Em Andamento</span>
+
+                            <!-- Lógica do status da tarefa -->
+                            {% if tarefa.finalizada == 0 %}
+                                <span class="badge badge-primary badge-pill">Em Andamento</span>
+                            {% else %}
+                                <span class="badge badge-success badge-pill">Finalizada</span>
+                            {% endif %}
+
+                            <!--Editar, excluir tarefa-->
                             <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="badge badge-dark badge-pill">Editar</a>
                             <a href="{% url 'tarefas:excluir_tarefa' tarefa.pk %}" class="badge badge-danger badge-pill">Excluir</a>
+                            
+                            <!-- Botão para finalizar tarefa -->
+                            <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="btn btn-success btn-circle btn-md">
+                                <i class="fas fa-check"></i>
+                            </a>
                         </li>
                         {% endfor %}
                     </ul>
                     {% endif %}
-
-                    
                 </div>
             </div>
         </div>

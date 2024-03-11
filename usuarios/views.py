@@ -32,7 +32,6 @@ def login(request):
             return redirect('tarefas:index')
         else:
             messages.error(request, 'Credenciais inválidas. Por favor, verifique seu e-mail e senha.')
-            
             return redirect('usuarios:formulario_login')
         
     return redirect('usuarios:formulario_login')
@@ -56,19 +55,16 @@ def cadastre_se(request):
         
         if emails_da_base.exists():
             messages.error(request, 'Erro: E-mail já está em uso!')
-            
             return redirect('usuarios:formulario_cadastro')
 
         if request.POST.get('nome_completo') == '':
             messages.error(request, 'Preencha seu nome')
-            
             return redirect('usuarios:formulario_cadastro')
         
         senha1 = request.POST.get('senha')
         senha2 = request.POST.get('confirmarSenha')
         if senha2 != senha1:
             messages.error(request, 'Erro: Senhas não coincidem')
-
             return redirect('usuarios:formulario_cadastro')
 
         novo_usuario = Usuario.objects.create(
@@ -76,6 +72,9 @@ def cadastre_se(request):
             email=request.POST.get('email'),
             senha=request.POST.get('senha'),
         )
-        novo_usuario.save()
+        
+        if novo_usuario:
+            messages.success(request, 'Cadastro realizado com sucesso! Faça login')
+            return redirect('usuarios:formulario_login')
         
     return redirect('usuarios:formulario_login')

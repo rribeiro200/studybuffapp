@@ -23,7 +23,7 @@
         <nav class="caixa-navbar navbar navbar-expand-sm navbar-light" style="background-color: #000000;">
             <div class="container">
 
-                <a href="" class="navbar-brand">
+                <a href="{% url 'tarefas:index' %}" class="navbar-brand">
                     <img src="{% static 'img/logo.png' %}" width="142">
                 </a>
 
@@ -82,6 +82,16 @@
                                 <label style="color: white;" for="hora">Hora</label>
                                 <input type="time" class="form-control" id="hora" name="hora"
                                     value="{{tarefa.hora}}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label style="color: white;" for="finalizada">Finalizada</label>
+
+                                <!--Lógica de opções - TAREFA FINALIZADA OU NÃO-->
+                                <select class="form-control" id="finalizada" name="finalizada">
+                                    <option value="True" {% if tarefa.finalizada %} selected {% endif %}>Sim</option>
+                                    <option value="False" {% if not tarefa.finalizada %} selected {% endif %}>Não</option>
+                                </select>
+                    
                             </div>
                         </div>
                         <button type="submit" style="background-color: #222769; border-color: #222769;"

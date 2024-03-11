@@ -8,6 +8,7 @@ class Tarefa(models.Model):
     descricao = models.CharField(max_length=255)
     data = models.DateField()
     hora = models.TimeField()
+    finalizada = models.BooleanField(default=False)
     usuario_fk = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):

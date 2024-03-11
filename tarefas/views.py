@@ -57,6 +57,7 @@ def editar_tarefa(request, pk):
         nova_descricao = request.POST.get('descricao')
         nova_data = request.POST.get('data')
         nova_hora = request.POST.get('hora')
+        finalizada = request.POST.get('finalizada') # Retorna TRUE ou FALSE <option value="">
 
         # Validar campos
         if not novo_titulo:
@@ -78,6 +79,7 @@ def editar_tarefa(request, pk):
                 descricao=nova_descricao,
                 data=nova_data,
                 hora=nova_hora,
+                finalizada=finalizada
             )
 
             if tarefa_atualizada:
@@ -98,5 +100,13 @@ def excluir_tarefa(request, pk):
         tarefa.delete()
         messages.error(request, f'{tarefa.titulo} deletada!')
         return redirect('tarefas:minhas_tarefas')
+
+    return redirect('tarefas:minhas_tarefas')
+
+
+def finalizar_tarefa(request, pk):
+    tarefa = Tarefa.objects.filter(pk=pk).first()
+    tarefa.finalizada = 1
+    tarefa.save()
 
     return redirect('tarefas:minhas_tarefas')
