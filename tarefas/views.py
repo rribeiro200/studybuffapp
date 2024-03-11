@@ -31,17 +31,11 @@ def criar_tarefa(request):
                     usuario_fk=usuario_tarefa
                 )
 
-                if nova_tarefa.save:
-                    pag_minhas_tarefas = request.META.get('HTTP_REFERER', 'tarefas:minhas_tarefas')
-
-                    if pag_minhas_tarefas:
-                        messages.success(request, 'Nova tarefa criada!')
-                        return redirect('tarefas:minhas_tarefas')
-                    else:
-                        messages.success(request, 'Tarefa criada com sucesso! Veja-a em "Minhas tarefas"')
-                        return redirect('tarefas:index')
+                if nova_tarefa:
+                    messages.success(request, f'"{titulo_tarefa}" criada!')
+                    return redirect('tarefas:minhas_tarefas')
                 
-    return redirect('tarefas:index')
+    return redirect('tarefas:minhas_tarefas')
 
 
 def minhas_tarefas(request):
@@ -68,21 +62,17 @@ def editar_tarefa(request, pk):
         if not novo_titulo:
             messages.error(request, 'O título é obrigatório.')
             return redirect('tarefas:editar_tarefa', pk=pk)
-
-        if not nova_descricao:
+        elif not nova_descricao:
             messages.error(request, 'A descrição é obrigatória.')
             return redirect('tarefas:editar_tarefa', pk=pk)
-
-        if not nova_data:
+        elif not nova_data:
             messages.error(request, 'A data é obrigatória.')
             return redirect('tarefas:editar_tarefa', pk=pk)
-
-        if not nova_hora:
+        elif not nova_hora:
             messages.error(request, 'A hora é obrigatória.')
             return redirect('tarefas:editar_tarefa', pk=pk)
-        
-        if not messages:
-            print('PEGOU')
+        else:
+            # Atualizar a tarefa
             tarefa_atualizada = Tarefa.objects.filter(pk=pk).update(
                 titulo=novo_titulo,
                 descricao=nova_descricao,
@@ -91,11 +81,22 @@ def editar_tarefa(request, pk):
             )
 
             if tarefa_atualizada:
-                messages.success(request, 'Tarefa atualizada com sucesso!')
+                messages.info(request, f'"{novo_titulo}" atualizada com sucesso!')
                 return redirect('tarefas:minhas_tarefas')
     
-        tarefas_do_usuario = Tarefa.objects.all().filter(usuario_fk=request.session['usuario']['id'])
+        tarefas_do_usuario = Tarefa.objects.filter(usuario_fk=request.session['usuario']['id'])
         
         return render(request, 'tarefas/minhas_tarefas.html', {'tarefas': tarefas_do_usuario})
 
     return render(request, 'tarefas/editar_tarefa.html', {'tarefa': tarefa})
+
+
+def excluir_tarefa(request, pk):
+    tarefa = Tarefa.objects.filter(pk=pk).first()
+
+    if tarefa:
+        tarefa.delete()
+        messages.error(request, f'{tarefa.titulo} deletada!')
+        return redirect('tarefas:minhas_tarefas')
+
+    return redirect('tarefas:minhas_tarefas')

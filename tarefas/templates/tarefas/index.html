@@ -41,10 +41,6 @@
               <a href="" style="color: white;" class="nav-link">Home</a>
             </li>
 
-            <li class="nav-item">
-              <a href="{% url 'tarefas:minhas_tarefas' %}" style="color: white;" class="nav-link">Minhas tarefas</a>
-            </li>
-
             <!-- Se usuário ainda não tiver conta exibir "Cadastre-se"-->
             <!-- Após usuário logar exibir "Sair"-->
             <!-- Se usuário já possuir conta, ao clicar em entrar, redirecionar para template de exibição  de tarefas -->
@@ -56,6 +52,9 @@
               <a href="{% url 'usuarios:formulario_cadastro' %}" class="btn btn-outline-light ml-4">Cadastre-se</a>
             </li>
             {% else %}
+            <li class="nav-item">
+              <a href="{% url 'tarefas:minhas_tarefas' %}" style="color: white;" class="nav-link">Minhas tarefas</a>
+            </li>
             <li class="nav-item">
               <a href="{% url 'usuarios:logout' %}" class="btn btn-outline-light ml-3">Logout</a>
             </li>
