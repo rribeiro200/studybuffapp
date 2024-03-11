@@ -7,7 +7,11 @@ from django.contrib import messages
 # Create your views here.
 def index(request):
     mensagens = messages.get_messages(request)
-    return render(request, 'tarefas/index.html', {'messages': mensagens})
+    id_usuario_sessao = request.session['usuario']['id']
+    usuario_tarefa = Usuario.objects.filter(id_usuario=id_usuario_sessao).first()
+    tarefas_do_usuario = Tarefa.objects.all().filter(usuario_fk=usuario_tarefa)
+    
+    return render(request, 'tarefas/index.html', {'messages': mensagens, 'tarefas': tarefas_do_usuario})
 
 
 def criar_tarefa(request):
@@ -106,7 +110,7 @@ def excluir_tarefa(request, pk):
 
 def finalizar_tarefa(request, pk):
     tarefa = Tarefa.objects.filter(pk=pk).first()
-    tarefa.finalizada = 1
+    tarefa.finalizada = 1 # True
     tarefa.save()
 
     return redirect('tarefas:minhas_tarefas')

@@ -135,10 +135,43 @@
           </div>
         </div>
 
-        <div class="col-md-6">
-          <h3>A ideia aqui é aparecer um template mostrando as tarefas do dia</h3>
-          <img src="{% static 'img/saiba.png' %}" class="img-fluid">
+        <!-- CARROUSEL -->
+        <div style="margin-left: 100px;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <H2 style="color: white; text-align: center; margin-right: 20px;">Tarefas</H2>
+
+            {% for tarefa in tarefas %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <div class="card text-white bg-info  mb-5" style="width: 25rem; height: 10rem;">
+                <div class="card-body">
+                  <h5 class="card-title">{{ tarefa.titulo }}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{ tarefa.descricao }}</h6>
+                  <h6 class="card-text mb-2 text-muted">{{ tarefa.data }}</h6>
+                  <h6 class="card-text mb-2 text-muted">{{ tarefa.hora }}</h6>
+                  <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="card-link btn btn-secondary">Editar
+                    tarefa</a>
+                  <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="card-link btn btn-success">Finalizar
+                    tarefa</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+          <!-- Controles de Navegação -->
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
+            style="margin-left: -50px;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
+            style="margin-right: -50px;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+          </a>
         </div>
+        <!-- CARROUSEL -->
+
 
       </div>
     </div>
@@ -152,10 +185,8 @@
           <img src="{% static 'img/facil.png' %}" class="img-fluid">
           <h4 style="color: white;">Fácil de Usar</h4>
           <p style="color: white;">
-            Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio
-            operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac,
-            sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis
-            iudicium purus sit amet fermentum.
+            A interface intuitiva do StudyBuff torna a gestão de tarefas uma tarefa fácil e agradável. Com apenas alguns
+            cliques, você pode criar, editar e excluir tarefas, garantindo uma experiência de usuário simplificada.
           </p>
         </div>
 
@@ -163,10 +194,9 @@
           <img src=" {% static 'img/economize.png' %} " class="img-fluid">
           <h4 style="color: white;">Economize seu tempo</h4>
           <p style="color: white;" class="text-wrap">
-            Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio
-            operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac,
-            sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis
-            iudicium purus sit amet fermentum.
+            Com o StudyBuff, você não apenas organiza suas tarefas, mas também economiza tempo valioso. Nossa plataforma
+            otimizada permite que você se concentre no que realmente importa, fornecendo uma maneira eficiente de
+            gerenciar suas responsabilidades diárias.
           </p>
         </div>
 
@@ -174,10 +204,9 @@
           <img src=" {% static 'img/suporte.png' %}" class="img-fluid">
           <h4 style="color: white;">Gerencie com facilidade</h4>
           <p style="color: white;">
-            Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio
-            operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac,
-            sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis
-            iudicium purus sit amet fermentum.
+            Gerenciar suas tarefas nunca foi tão fácil como com o StudyBuff. Desde a criação até a conclusão, nossa
+            plataforma oferece recursos poderosos para simplificar o processo de gerenciamento de tarefas. Deixe-nos
+            ajudá-lo a organizar sua vida de maneira simples e eficaz.
           </p>
         </div>
 
