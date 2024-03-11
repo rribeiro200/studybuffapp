@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilo.css' %}">
+
+    <title>StudyBuff - Atualizar tarefa</title>
+</head>
+
+<body style="background-color: #000000;">
+
+    <header>
+        <nav class="caixa-navbar navbar navbar-expand-sm navbar-light" style="background-color: #000000;">
+            <div class="container">
+
+                <a href="" class="navbar-brand">
+                    <img src="{% static 'img/logo.png' %}" width="142">
+                </a>
+
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#nav-principal">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="nav-principal">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="{% url 'tarefas:index' %}" style="color: white;" class="nav-link">Home</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <section id="registro">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h2 style="color: white; margin-top:20px;" class="text-center mb-4">Editar tarefa</h2>
+                    
+                    {% if messages %}
+                        <div class="messages">
+                            {% for message in messages %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if  tarefa %}    
+                    <form action="{% url 'tarefas:editar_tarefa' tarefa.pk %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label style="color: white;" for="titulo">Título</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" value="{{ tarefa.titulo }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label style="color: white;" for="descricao">Descrição</label>
+                                <input type="textarea" class="form-control" id="descricao" name="descricao" value="{{tarefa.descricao}}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label style="color: white;" for="data">Data</label>
+                                <input type="date" class="form-control" id="data" name="data"
+                                    value="{{tarefa.data}}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label style="color: white;" for="hora">Hora</label>
+                                <input type="time" class="form-control" id="hora" name="hora"
+                                    value="{{tarefa.hora}}">
+                            </div>
+                        </div>
+                        <button type="submit" style="background-color: #222769; border-color: #222769;"
+                            class="btn btn-primary btn-block">Atualizar</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -97,8 +97,7 @@
                               Criar tarefa
                             </a>
                           </div>
-                    {% endif %}
-
+                    {% else %}
                     <ul class="list-group">
                         {% for tarefa in tarefas %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -113,6 +112,9 @@
                         </li>
                         {% endfor %}
                     </ul>
+                    {% endif %}
+
+                    
                 </div>
             </div>
         </div>
@@ -142,32 +144,32 @@
         </button>
       </div>
       <div class="modal-body">
-        <!-- Formulário de criação de tarefa -->
+            <!-- Formulário de criação de tarefa -->
         <form action="{% url 'tarefas:criar_tarefa' %}" method="POST" id="formNovaTarefa">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="tituloTarefa">Título</label>
-            <input type="text" class="form-control" id="tituloTarefa" name="tituloTarefa"
-              placeholder="Título da Tarefa" required>
-          </div>
-          <div class="form-group">
-            <label for="descricaoTarefa">Descrição</label>
-            <textarea class="form-control" id="descricaoTarefa" name="descricaoTarefa"
-              placeholder="Descrição da Tarefa" rows="3" required></textarea>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="dataTarefa">Data</label>
-              <input type="date" class="form-control" id="dataTarefa" name="dataTarefa" required>
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="tituloTarefa">Título</label>
+              <input type="text" class="form-control" id="tituloTarefa" name="tituloTarefa"
+                placeholder="Título da Tarefa" required>
             </div>
-            <div class="form-group col-md-6">
-              <label for="horarioTarefa">Horário</label>
-              <input type="time" class="form-control" id="horarioTarefa" name="horarioTarefa" required>
+            <div class="form-group">
+              <label for="descricaoTarefa">Descrição</label>
+              <textarea class="form-control" id="descricaoTarefa" name="descricaoTarefa"
+                placeholder="Descrição da Tarefa" rows="3" required></textarea>
             </div>
-          </div>
-          <button style="background-color:#222769; border-color:#222769;" type="submit"
-            class="btn btn-primary btn-block">Criar
-            Tarefa</button>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="dataTarefa">Data</label>
+                <input type="date" class="form-control" id="dataTarefa" name="dataTarefa" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="horarioTarefa">Horário</label>
+                <input type="time" class="form-control" id="horarioTarefa" name="horarioTarefa" required>
+              </div>
+            </div>
+            <button style="background-color:#222769; border-color:#222769;" type="submit"
+              class="btn btn-primary btn-block">Criar
+              Tarefa</button>
         </form>
       </div>
     </div>

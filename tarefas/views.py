@@ -56,6 +56,46 @@ def minhas_tarefas(request):
 
 
 def editar_tarefa(request, pk):
-    # Abrir um modal com os dados da tarefa nos inputs para usuário editar
+    tarefa = Tarefa.objects.filter(pk=pk).first()
+
+    if request.method == 'POST':    
+        novo_titulo = request.POST.get('titulo')
+        nova_descricao = request.POST.get('descricao')
+        nova_data = request.POST.get('data')
+        nova_hora = request.POST.get('hora')
+
+        # Validar campos
+        if not novo_titulo:
+            messages.error(request, 'O título é obrigatório.')
+            return redirect('tarefas:editar_tarefa', pk=pk)
+
+        if not nova_descricao:
+            messages.error(request, 'A descrição é obrigatória.')
+            return redirect('tarefas:editar_tarefa', pk=pk)
+
+        if not nova_data:
+            messages.error(request, 'A data é obrigatória.')
+            return redirect('tarefas:editar_tarefa', pk=pk)
+
+        if not nova_hora:
+            messages.error(request, 'A hora é obrigatória.')
+            return redirect('tarefas:editar_tarefa', pk=pk)
+        
+        if not messages:
+            print('PEGOU')
+            tarefa_atualizada = Tarefa.objects.filter(pk=pk).update(
+                titulo=novo_titulo,
+                descricao=nova_descricao,
+                data=nova_data,
+                hora=nova_hora,
+            )
+
+            if tarefa_atualizada:
+                messages.success(request, 'Tarefa atualizada com sucesso!')
+                return redirect('tarefas:minhas_tarefas')
     
-    return HttpResponse('Editar tarefa')
+        tarefas_do_usuario = Tarefa.objects.all().filter(usuario_fk=request.session['usuario']['id'])
+        
+        return render(request, 'tarefas/minhas_tarefas.html', {'tarefas': tarefas_do_usuario})
+
+    return render(request, 'tarefas/editar_tarefa.html', {'tarefa': tarefa})
