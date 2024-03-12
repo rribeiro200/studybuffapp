@@ -130,31 +130,35 @@
               vida.
             </p>
             <!-- Se usuario estiver logado e possuir tarefas, exibe: -->
-            <a href="" style="background-color: #222769; border-color: #222769;" class="btn btn-success">Minhas
+            <a href="{% url 'tarefas:minhas_tarefas' %}" style="background-color: #222769; border-color: #222769;"
+              class="btn btn-success">Minhas
               tarefas</a>
           </div>
         </div>
 
         <!-- CARROUSEL -->
+        {% if tarefas %}
         <div style="margin-left: 100px;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <H2 style="color: white; text-align: center; margin-right: 20px;">Tarefas</H2>
 
             {% for tarefa in tarefas %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-              <div class="card text-white bg-info  mb-5" style="width: 25rem; height: 10rem;">
-                <div class="card-body">
-                  <h5 class="card-title">{{ tarefa.titulo }}</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">{{ tarefa.descricao }}</h6>
-                  <h6 class="card-text mb-2 text-muted">{{ tarefa.data }}</h6>
-                  <h6 class="card-text mb-2 text-muted">{{ tarefa.hora }}</h6>
-                  <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="card-link btn btn-secondary">Editar
-                    tarefa</a>
-                  <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="card-link btn btn-success">Finalizar
-                    tarefa</a>
+            <a style="text-decoration: none;" href="{% url 'tarefas:editar_tarefa' tarefa.pk %}">
+              <div href="{% url 'tarefas:editar_tarefa' tarefa.pk %}"
+                class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="card text-white bg-info  mb-5" style="width: 25rem; height: 12rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ tarefa.titulo }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ tarefa.descricao }}</h6>
+                    <h6 class="card-text mb-2 text-muted">{{ tarefa.data }}</h6>
+                    <h6 class="card-text mb-2 text-muted">{{ tarefa.hora }}</h6>
+                    <div style="margin-top:20px; margin-left:290px;" class="btn-group" role="group" aria-label="Ações">
+                      <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="btn btn-success">Finalizar</a>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
             {% endfor %}
 
           </div>
@@ -170,7 +174,9 @@
             <span class="sr-only">Próximo</span>
           </a>
         </div>
+        {% endif %}
         <!-- CARROUSEL -->
+
 
 
       </div>

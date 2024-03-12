@@ -5,7 +5,8 @@
 - [x] Feedback para usuário ao se cadastrar e fazer login.
 - [x] Quero que apareça um botão para eu finalizar a tarefa.
 - [x] Como usuário, quero obter um status da tarefa, "Em andamento/Finalizada".
-- [] Implementação de lógicas para o card das tarefas.
-- [] Implementar a seção de "Importância e benefícios"
+- [x] Implementar a seção de "Importância e benefícios"
+- [x] Implementar lógicas para o card das tarefas.
+- [] Melhorar a página "Minhas tarefas"
 - [] Corrigir ValidationError no campo de "data" se coloca valor errado.
 - [] Tornar a aplicação responsiva.

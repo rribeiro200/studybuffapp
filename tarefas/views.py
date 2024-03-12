@@ -7,11 +7,17 @@ from django.contrib import messages
 # Create your views here.
 def index(request):
     mensagens = messages.get_messages(request)
-    id_usuario_sessao = request.session['usuario']['id']
-    usuario_tarefa = Usuario.objects.filter(id_usuario=id_usuario_sessao).first()
-    tarefas_do_usuario = Tarefa.objects.all().filter(usuario_fk=usuario_tarefa)
-    
-    return render(request, 'tarefas/index.html', {'messages': mensagens, 'tarefas': tarefas_do_usuario})
+
+    # Renderiza o index mesmo se a sessão estiver vazia
+    if not 'usuario' in request.session:
+        return render(request, 'tarefas/index.html', {'messages': mensagens})
+    else:
+        # Se tiver usuário na sessão, renderiza as tarefas dele no carrousel
+        id_usuario_sessao = request.session['usuario']['id']
+        usuario_tarefa = Usuario.objects.filter(id_usuario=id_usuario_sessao).first()
+        tarefas_do_usuario = Tarefa.objects.all().filter(usuario_fk=usuario_tarefa, finalizada=False)
+        return render(request, 'tarefas/index.html', {'messages': mensagens, 'tarefas': tarefas_do_usuario})
+
 
 
 def criar_tarefa(request):
@@ -110,7 +116,12 @@ def excluir_tarefa(request, pk):
 
 def finalizar_tarefa(request, pk):
     tarefa = Tarefa.objects.filter(pk=pk).first()
-    tarefa.finalizada = 1 # True
-    tarefa.save()
+
+    if tarefa.finalizada == 0: # Se for False
+        tarefa.finalizada = 1 # Recebe True
+        tarefa.save()
+        messages.success(request, f'Parabéns por finalizar sua tarefa: "{tarefa.titulo}"')
+        
+        return redirect('tarefas:minhas_tarefas')
 
     return redirect('tarefas:minhas_tarefas')
