@@ -7,6 +7,12 @@
 - [x] Como usuário, quero obter um status da tarefa, "Em andamento/Finalizada".
 - [x] Implementar a seção de "Importância e benefícios"
 - [x] Implementar lógicas para o card das tarefas.
-- [] Melhorar a página "Minhas tarefas"
+- [x] Melhorar a página "Minhas tarefas"
+- [x] Criar sessão de tarefas concluidas na página de "Minhas tarefas"
+
+
+
+
+######
 - [] Corrigir ValidationError no campo de "data" se coloca valor errado.
 - [] Tornar a aplicação responsiva.

@@ -51,10 +51,13 @@ def criar_tarefa(request):
 def minhas_tarefas(request):
     id_usuario_sessao = request.session['usuario']['id']
     usuario_tarefa = Usuario.objects.filter(id_usuario=id_usuario_sessao).first()
+
     tarefas_do_usuario = Tarefa.objects.all().filter(usuario_fk=usuario_tarefa)
+    tarefas_concluidas = Tarefa.objects.filter(usuario_fk=usuario_tarefa, finalizada=True)
+    tarefas_em_andamento = Tarefa.objects.filter(usuario_fk=usuario_tarefa, finalizada=False)
     
     if tarefas_do_usuario:
-        return render(request, 'tarefas/minhas_tarefas.html', {'tarefas': tarefas_do_usuario})
+        return render(request, 'tarefas/minhas_tarefas.html', {'tarefas': tarefas_do_usuario, 'tarefas_concluidas': tarefas_concluidas, 'tarefas_em_andamento': tarefas_em_andamento})
     else:
         return render(request, 'tarefas/minhas_tarefas.html')
 

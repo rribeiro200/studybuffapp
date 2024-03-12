@@ -11,7 +11,8 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilo.css' %}">
     
@@ -31,10 +32,6 @@
             border-color: #dee2e6;
         }
 
-        .list-group-item:hover {
-            background-color: #e9ecef;
-        }
-
         .badge {
             font-size: 14px;
             margin-left: auto;
@@ -46,6 +43,17 @@
 
         .badge-success {
             background-color: #28a745;
+        }
+
+        /* Botões de ação */
+        .acoes-tarefa {
+            display: flex;
+            align-items: center;
+        }
+
+        .acoes-tarefa a {
+            margin-left: 10px;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -75,7 +83,6 @@
 
     <section style="margin-top:80px;" id="tarefas">
         <div class="container">
-    
             <!-- FEEDBACK PRO USUÁRIO -->
             {% if messages %}
                 <div class="messages">
@@ -97,8 +104,8 @@
                 <div class="col-md-12">
                     <h2>Minhas Tarefas</h2>
     
-                    {% if not tarefas %}
-                        <p>Você não tem nenhuma tarefa.</p>
+                    {% if not tarefas_em_andamento %}
+                        <p>Você não tem nenhuma tarefa em andamento.</p>
                         <div class="input-group-append">
                             <a href="#" id="botao_nova_tarefa" style="background-color: #222769; border-color: #222769;"
                                 class="btn btn-primary" data-toggle="modal" data-target="#modalNovaTarefa">
@@ -106,38 +113,60 @@
                             </a>
                         </div>
                     {% else %}
-                    <ul class="list-group">
-                        {% for tarefa in tarefas %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <h5>{{ tarefa.titulo }}</h5>
-                                <p class="mb-1">{{ tarefa.descricao }}</p>
-                                <small>Data: {{ tarefa.data }} - Hora: {{ tarefa.hour }}</small>
-                            </div>
-
-                            <!-- Lógica do status da tarefa -->
-                            {% if tarefa.finalizada == 0 %}
-                                <span class="badge badge-primary badge-pill">Em Andamento</span>
-                            {% else %}
-                                <span class="badge badge-success badge-pill">Finalizada</span>
-                            {% endif %}
-
-                            <!--Editar, excluir tarefa-->
-                            <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="badge badge-dark badge-pill">Editar</a>
-                            <a href="{% url 'tarefas:excluir_tarefa' tarefa.pk %}" class="badge badge-danger badge-pill">Excluir</a>
-                            
-                            <!-- Botão para finalizar tarefa -->
-                            <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="btn btn-success btn-circle btn-md">
-                                <i class="fas fa-check"></i>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                        <ul class="list-group">
+                            {% for tarefa in tarefas_em_andamento %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="tarefa-info">
+                                        <h5>{{ tarefa.titulo }}</h5>
+                                        <p class="mb-1">{{ tarefa.descricao }}</p>
+                                        <small>Data: {{ tarefa.data }} - Hora: {{ tarefa.hora }}</small>
+                                    </div>
+                                    <span class="badge badge-primary">Em Andamento</span>
+                                    <div class="acoes-tarefa">
+                                        <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="btn btn-outline-dark btn-sm">Editar</a>
+                                        <a href="{% url 'tarefas:excluir_tarefa' tarefa.pk %}" class="btn btn-outline-danger btn-sm">Excluir</a>
+                                        <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="btn btn-success btn-circle btn-md"><i class="fas fa-check"></i></a>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     {% endif %}
                 </div>
             </div>
         </div>
     </section>
+    
+    <section style="margin-top:120px;" id="tarefas-concluidas">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Tarefas Concluídas</h2>
+    
+                    {% if not tarefas_concluidas %}
+                        <p>Você não tem nenhuma tarefa concluída.</p>
+                    {% else %}
+                        <ul class="list-group">
+                            {% for tarefa in tarefas_concluidas %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="tarefa-info">
+                                        <h5>{{ tarefa.titulo }}</h5>
+                                        <p class="mb-1">{{ tarefa.descricao }}</p>
+                                        <small>Data: {{ tarefa.data }} - Hora: {{ tarefa.hora }}</small>
+                                    </div>
+                                    <span class="badge badge-success">Concluída</span>
+                                    <div class="acoes-tarefa">
+                                        <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="btn btn-outline-dark btn-sm">Editar</a>
+                                        <a href="{% url 'tarefas:excluir_tarefa' tarefa.pk %}" class="btn btn-outline-danger btn-sm">Excluir</a>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
 
     <!-- JavaScript (Opcional) -->
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
