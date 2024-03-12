@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@jio_h8od(tnl3by8p-q%)w-a5e+tjgp542*pdt_koo%w^8y6o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -134,3 +134,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+# Adicione esta linha para definir o caminho da pasta NIXPACKS
+NIXPACKS_PYTHON_VERSION = 'C:\\Users\\rafae\\.nixpacks\\bin'
