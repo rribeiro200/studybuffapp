@@ -9,10 +9,10 @@
 - [x] Implementar lógicas para o card das tarefas.
 - [x] Melhorar a página "Minhas tarefas"
 - [x] Criar sessão de tarefas concluidas na página de "Minhas tarefas"
-
+- [x] Tornar a aplicação responsiva.
+- [x] Arrumar footer
 
 
 
 ######
 - [] Corrigir ValidationError no campo de "data" se coloca valor errado.
-- [] Tornar a aplicação responsiva.

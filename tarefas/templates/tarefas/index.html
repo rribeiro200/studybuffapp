@@ -24,7 +24,7 @@
 <body>
 
   <header><!---Inicio Cabeçalho--->
-    <nav class="caixa-navbar navbar navbar-expand-sm navbar-light" style="background-color: #000000;">
+    <nav class="caixa-navbar navbar navbar-expand-sm navbar-dark" style="background-color: #000000;">
       <div class="container">
 
         <a href="" class="navbar-brand">
@@ -49,7 +49,7 @@
               <a href="{% url 'usuarios:login' %}" class="btn btn-outline-light ml-3">Login</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'usuarios:formulario_cadastro' %}" class="btn btn-outline-light ml-4">Cadastre-se</a>
+              <a href="{% url 'usuarios:formulario_cadastro' %}" class="btn btn-outline-light ml-3">Cadastre-se</a>
             </li>
             {% else %}
             <li class="nav-item">
@@ -59,18 +59,19 @@
               <a href="{% url 'usuarios:logout' %}" class="btn btn-outline-light ml-3">Logout</a>
             </li>
             {% endif %}
+
           </ul>
         </div>
-
       </div>
     </nav>
   </header><!---Fim Cabeçalho--->
+
 
   <section class="caixa" id="Home"><!--Inicio Sessão Home--->
     <div class="container">
       <div class="row">
 
-        <div class="col-md-6 d-flex"><!---Textos da Seção--->
+        <div class="col-md-6"><!---Textos da Seção--->
           <div class="align-self-center">
 
             {% if messages %}
@@ -108,7 +109,7 @@
         </div><!---Fim Textos da Seção--->
 
         <div class="col-md-6 d-none d-md-block">
-          <img src="{% static 'img/capa-gerenciamento.png' %}">
+          <img src="{% static 'img/capa-gerenciamento.png' %}" class="img-fluid">
         </div>
 
       </div>
@@ -120,7 +121,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-md-6 d-flex">
+        <div style="margin-bottom:60px;" class="col-md-6">
           <div class="align-self-center">
             <h2 style="color: white;">Importância e benefícios</h2>
             <p style="color: white;">
@@ -138,46 +139,40 @@
 
         <!-- CARROUSEL -->
         {% if tarefas %}
-        <div style="margin-left: 100px;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <H2 style="color: white; text-align: center; margin-right: 20px;">Tarefas</H2>
+        <div class="col-md-6">
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
 
-            {% for tarefa in tarefas %}
-            <a style="text-decoration: none;" href="{% url 'tarefas:editar_tarefa' tarefa.pk %}">
-              <div href="{% url 'tarefas:editar_tarefa' tarefa.pk %}"
-                class="carousel-item {% if forloop.first %}active{% endif %}">
-                <div class="card text-white bg-info  mb-5" style="width: 25rem; height: 12rem;">
+              {% for tarefa in tarefas %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="card text-white bg-dark mb-5" style="width: 100%;">
                   <div class="card-body">
                     <h5 class="card-title">{{ tarefa.titulo }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ tarefa.descricao }}</h6>
                     <h6 class="card-text mb-2 text-muted">{{ tarefa.data }}</h6>
                     <h6 class="card-text mb-2 text-muted">{{ tarefa.hora }}</h6>
-                    <div style="margin-top:15px; margin-left:280px;" class="btn-group" role="group" aria-label="Ações">
+                    <div style="margin-top:15px;text-align:center;" class="btn-group" role="group" aria-label="Ações">
                       <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="btn btn-success">Concluir</a>
                     </div>
                   </div>
                 </div>
               </div>
-            </a>
-            {% endfor %}
+              {% endfor %}
 
+            </div>
+            <!-- Controles de Navegação -->
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Próximo</span>
+            </a>
           </div>
-          <!-- Controles de Navegação -->
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
-            style="margin-left: -50px;">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Anterior</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
-            style="margin-right: -50px;">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Próximo</span>
-          </a>
         </div>
         {% endif %}
         <!-- CARROUSEL -->
-
-
 
       </div>
     </div>
@@ -220,27 +215,33 @@
     </div>
   </section><!--FIM SESSÃO CONTEUDOS JUNTOS (FINAL)-->
 
-  <section style="background-color: #000000;" class="caixa">
-    <footer class="mt-5 mb-5">
-      <div class="container">
-        <div class="row">
+  <footer class="footer" style="background-color: #000000; color: white; padding: 50px 0;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Redes Sociais</h5>
+          <ul class="list-unstyled">
+            <li><a href="https://github.com/rribeiro200" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/rafael-o-ribeiro/" target="_blank"><i class="fab fa-linkedin"></i>
+                LinkedIn</a></li>
+            <li><a href="https://www.instagram.com/rafribeir0/" target="_blank"><i class="fab fa-instagram"></i>
+                Instagram</a></li>
+            <!-- Adicione outras redes sociais aqui -->
 
-          <div class="col-md-8">
-            <p>
-              <a style="color: white;" href="">Home</a>
-            </p>
-          </div>
-
-          <div class="col-md-4 d-flex justify-content-end">
-            <a href="" class="btn btn-outline-dark ml-3">
-              <i class="fab fa-instagram fa-lg"></i>
-            </a>
-          </div>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h5>Contato</h5>
+          <ul class="list-unstyled">
+            <li>Email: rafaelribdev@gmail.com</li>
+            <li>Telefone: (35) 99706-9104</li>
+            <!-- Adicione outras formas de contato aqui -->
+          </ul>
         </div>
       </div>
+    </div>
+  </footer>
 
-    </footer>
-  </section>
 
   <!-- JavaScript (Opcional) -->
   <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->

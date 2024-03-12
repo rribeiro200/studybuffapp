@@ -26,23 +26,14 @@
             background-color: #000000;
         }
 
-        .list-group-item {
-            background-color: #000000;
+        .card {
+            background-color: #222222;
             color: #fff;
-            border-color: #dee2e6;
+            margin-bottom: 20px;
         }
 
         .badge {
             font-size: 14px;
-            margin-left: auto;
-        }
-
-        .badge-primary {
-            background-color: #007bff;
-        }
-
-        .badge-success {
-            background-color: #28a745;
         }
 
         /* Botões de ação */
@@ -53,20 +44,34 @@
 
         .acoes-tarefa a {
             margin-left: 10px;
-            margin-right: 10px;
         }
+
+        /* Modal */
+        .modal-content {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-footer {
+            border-top: none;
+        }
+        
     </style>
 </head>
 
 <body>
 
     <header>
-        <nav class="caixa-navbar navbar navbar-expand-sm navbar-light">
+        <nav class="caixa-navbar navbar navbar-expand-sm navbar-dark">
             <div class="container">
                 <a href="{% url 'tarefas:index' %}" class="navbar-brand">
                     <img src="{% static 'img/logo.png' %}" width="142" alt="Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -80,6 +85,7 @@
             </div>
         </nav>
     </header>
+    
 
     <section style="margin-top:80px;" id="tarefas">
         <div class="container">
@@ -102,34 +108,36 @@
     
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Minhas Tarefas</h2>
+                    <h2 class="text-center">Minhas Tarefas</h2>
     
                     {% if not tarefas_em_andamento %}
-                        <p>Você não tem nenhuma tarefa em andamento.</p>
-                        <div class="input-group-append">
+                        <p class="text-center">Você não tem nenhuma tarefa em andamento.</p>
+                        <div class="text-center">
                             <a href="#" id="botao_nova_tarefa" style="background-color: #222769; border-color: #222769;"
                                 class="btn btn-primary" data-toggle="modal" data-target="#modalNovaTarefa">
                                 Criar tarefa
                             </a>
                         </div>
                     {% else %}
-                        <ul class="list-group">
+                        <div class="row">
                             {% for tarefa in tarefas_em_andamento %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="tarefa-info">
-                                        <h5>{{ tarefa.titulo }}</h5>
-                                        <p class="mb-1">{{ tarefa.descricao }}</p>
-                                        <small>Data: {{ tarefa.data }} - Hora: {{ tarefa.hora }}</small>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ tarefa.titulo }}</h5>
+                                            <p class="card-text">{{ tarefa.descricao }}</p>
+                                            <p class="card-text">Data: {{ tarefa.data }} - Hora: {{ tarefa.hora }}</p>
+                                            <span class="badge badge-primary">Em Andamento</span>
+                                            <div class="acoes-tarefa">
+                                                <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="btn btn-outline-dark btn-sm">Editar</a>
+                                                <a href="{% url 'tarefas:excluir_tarefa' tarefa.pk %}" class="btn btn-outline-danger btn-sm">Excluir</a>
+                                                <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="btn btn-success btn-circle btn-md"><i class="fas fa-check"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span class="badge badge-primary">Em Andamento</span>
-                                    <div class="acoes-tarefa">
-                                        <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="btn btn-outline-dark btn-sm">Editar</a>
-                                        <a href="{% url 'tarefas:excluir_tarefa' tarefa.pk %}" class="btn btn-outline-danger btn-sm">Excluir</a>
-                                        <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="btn btn-success btn-circle btn-md"><i class="fas fa-check"></i></a>
-                                    </div>
-                                </li>
+                                </div>
                             {% endfor %}
-                        </ul>
+                        </div>
                     {% endif %}
                 </div>
             </div>
@@ -140,27 +148,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Tarefas Concluídas</h2>
+                    <h2 class="text-center">Tarefas Concluídas</h2>
     
                     {% if not tarefas_concluidas %}
-                        <p>Você não tem nenhuma tarefa concluída.</p>
+                        <p class="text-center">Você não tem nenhuma tarefa concluída.</p>
                     {% else %}
-                        <ul class="list-group">
+                        <div class="row">
                             {% for tarefa in tarefas_concluidas %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="tarefa-info">
-                                        <h5>{{ tarefa.titulo }}</h5>
-                                        <p class="mb-1">{{ tarefa.descricao }}</p>
-                                        <small>Data: {{ tarefa.data }} - Hora: {{ tarefa.hora }}</small>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ tarefa.titulo }}</h5>
+                                            <p class="card-text">{{ tarefa.descricao }}</p>
+                                            <p class="card-text">Data: {{ tarefa.data }} - Hora: {{ tarefa.hora }}</p>
+                                            <span class="badge badge-success">Concluída</span>
+                                            <div class="acoes-tarefa">
+                                                <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="btn btn-outline-dark btn-sm">Editar</a>
+                                                <a href="{% url 'tarefas:excluir_tarefa' tarefa.pk %}" class="btn btn-outline-danger btn-sm">Excluir</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span class="badge badge-success">Concluída</span>
-                                    <div class="acoes-tarefa">
-                                        <a href="{% url 'tarefas:editar_tarefa' tarefa.pk %}" class="btn btn-outline-dark btn-sm">Editar</a>
-                                        <a href="{% url 'tarefas:excluir_tarefa' tarefa.pk %}" class="btn btn-outline-danger btn-sm">Excluir</a>
-                                    </div>
-                                </li>
+                                </div>
                             {% endfor %}
-                        </ul>
+                        </div>
                     {% endif %}
                 </div>
             </div>
