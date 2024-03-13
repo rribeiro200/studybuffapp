@@ -139,8 +139,8 @@
 
         <!-- CARROUSEL -->
         {% if tarefas %}
-        <div class="col-md-6">
-          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="col-md-5">
+          <div id="carouselExampleControls" class="carousel slide mb-4" data-ride="carousel">
             <div class="carousel-inner">
 
               {% for tarefa in tarefas %}
@@ -151,7 +151,7 @@
                     <h6 class="card-subtitle mb-2 text-muted">{{ tarefa.descricao }}</h6>
                     <h6 class="card-text mb-2 text-muted">{{ tarefa.data }}</h6>
                     <h6 class="card-text mb-2 text-muted">{{ tarefa.hora }}</h6>
-                    <div style="margin-top:15px;text-align:center;" class="btn-group" role="group" aria-label="Ações">
+                    <div style="margin-right:10px;" class="text-center mb-2">
                       <a href="{% url 'tarefas:finalizar_tarefa' tarefa.pk %}" class="btn btn-success">Concluir</a>
                     </div>
                   </div>
@@ -161,17 +161,20 @@
 
             </div>
             <!-- Controles de Navegação -->
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
+              style="top:40%;">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Anterior</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
+              style="top: 40%;">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Próximo</span>
             </a>
           </div>
         </div>
         {% endif %}
+
         <!-- CARROUSEL -->
 
       </div>
@@ -227,10 +230,9 @@
             <li><a href="https://www.instagram.com/rafribeir0/" target="_blank"><i class="fab fa-instagram"></i>
                 Instagram</a></li>
             <!-- Adicione outras redes sociais aqui -->
-
           </ul>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 text-md-right mt-3 mt-md-0">
           <h5>Contato</h5>
           <ul class="list-unstyled">
             <li>Email: rafaelribdev@gmail.com</li>
@@ -241,6 +243,7 @@
       </div>
     </div>
   </footer>
+
 
 
   <!-- JavaScript (Opcional) -->

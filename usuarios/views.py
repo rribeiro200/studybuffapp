@@ -29,7 +29,9 @@ def login(request):
             'senha': usuario[0].senha,
         }
             request.session['usuario'] = dict_usuario_sessao
-            return redirect('tarefas:index')
+            nome_usuario_completo = request.session['usuario']['nome_completo']
+            messages.success(request, f'Seja bem vindo {nome_usuario_completo}')
+            return render(request, 'tarefas/index.html', {'nome': nome_usuario_completo})
         else:
             messages.error(request, 'Credenciais inválidas. Por favor, verifique seu e-mail e senha.')
             return redirect('usuarios:formulario_login')
