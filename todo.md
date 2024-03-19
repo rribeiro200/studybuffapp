@@ -11,8 +11,8 @@
 - [x] Criar sessão de tarefas concluidas na página de "Minhas tarefas"
 - [x] Tornar a aplicação responsiva.
 - [x] Arrumar footer
+- [x] Como usuário, quero receber um feedback ao logar.
 - [] Corrigir logo
-- [] Como usuário, quero receber um feedback ao logar.
 
 
 

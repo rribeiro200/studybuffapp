@@ -10,12 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from dotenv import load_dotenv
 from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -80,11 +83,11 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'studybuff',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',  # Pode ser 'localhost' se o MySQL estiver instalado localmente
-        'PORT': '3306',  # Porta padrão do MySQL
+        'NAME': os.environ.get('NAME'),
+        'USER': os.environ.get('USER'),
+        'PASSWORD': os.environ.get('PASSWORD'),
+        'HOST': os.environ.get('HOST'),  # Pode ser 'localhost' se o MySQL estiver instalado localmente
+        'PORT': os.environ.get('PORT'),  # Porta padrão do MySQL
     }
 }
 

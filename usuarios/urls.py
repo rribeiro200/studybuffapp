@@ -5,13 +5,13 @@ app_name = 'usuarios'
 
 urlpatterns = [
     # LOGIN
-    path('login/form/', views.formulario_login, name='formulario_login'),
-    path('login/', views.login, name='login'),
+    path('login/form/', views.FormularioLoginView.as_view(), name='formulario_login'),
+    path('login/', views.Login.as_view(), name='login'),
 
     # LOGOUT
-    path('logout/', views.logout, name='logout'),
+    path('logout/', views.Logout.as_view(), name='logout'),
 
     # CADASTRE-SE
-    path('cadastro/form/', views.formulario_cadastro, name='formulario_cadastro'),
-    path('cadastro/', views.cadastre_se, name='cadastro'),
+    path('cadastro/form/', views.FormularioCadastroView.as_view(), name='formulario_cadastro'),
+    path('cadastro/', views.CadastreSe.as_view(), name='cadastro'),
 ]
